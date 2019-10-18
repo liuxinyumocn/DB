@@ -1,0 +1,129 @@
+<script type="text/javascript">
+	//OPTICS
+	let data = [1,4,6,10,11,14,17,18,19,20,21,22,7,8,9,26,27,28,29,32];
+
+	//初始化所有点的 可达距离 和 核心距离为MAX
+	let dataOb = [];
+	for(let i in data){
+		dataOb.push([
+			data[i],999,999			//第二个参数为 可达距离 第三个参数为 核心距离
+		]);
+	}
+
+	let result = [];	//结果集
+	let order = [];		//有序集
+
+	let s = 2; 			//半径
+	let MinPts = 4;		//最少点数
+
+	function isCore(p,s,MinPts){
+		let num = 0;
+		for(let i in dataOb){
+			if(Math.abs(dataOb[i][0] - p[0]) <= s)
+				num++
+			if(num >= MinPts){
+				//设置核心距离
+				p[2] = Math.abs(dataOb[i][0] - p[0]);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	function getPoint(p,s){ //直接密度可达点集合
+		let list = [];
+		for(let i in dataOb){
+			let q = dataOb[i];
+			if(Math.abs(p[0]-q[0]) <= s && q != p){
+				//设置pq的直接密度可达距离
+				q[1] = Math.abs(p[0]-q[0]);
+				if(q[1] < p[2])
+					q[1] = p[2];
+				list.push(q);
+			}
+		}
+		return list;
+	}
+
+	//放入Order中并重新排序
+	function pushOrder(list){
+		for(let i in list){
+			let c = false;
+			for(let j in order){
+				if(order[j][0] == list[i][0])
+				{
+					c = true;
+					if(order[j][1] > list[i][1])
+						order[j][1] = list[i][1];
+					break;
+				}
+			}
+			if(!c)
+				order.push([i[0],i[1],i[2]]);
+		}
+		//按照直接密度可达距离升序排序 
+		for(let i=0;i<order.length;i++){
+			for(let j = i+1;j<order.length;j++){
+				if(order[j][1] < order[i][1]){
+					let a = order[j];
+					order[j] = order[i];
+					order[i] = a ;
+				}
+			}
+		}
+	}
+
+	//放入结果队列
+	function pushResult(ob){
+		for(let i in result){
+			if(result[i][0] == ob[0])
+				return;
+		}
+		result.push(ob);
+	}
+
+	function OPTICS(){
+		for(let i in dataOb){
+			let p = dataOb[i];
+			if(isCore(p,s,MinPts)){	//判断是否是核心点
+				pushResult(p);
+				let ps = getPoint(p,s);	//找出该核心点的其他密度可直达点集合
+				//放入有序队列(去重)
+				pushOrder(ps);
+				
+				shiftOrder();
+			}
+		}
+		console.log('结果集：',result);
+
+		Result();
+	}
+
+	function Result(s){
+		for(let i in result){
+			if(result[i][1] < s){
+				console.log(result[i][0]+'属于当前类别');
+			}else if(result[i][2] > s){
+				console.log(result[i][0]+'属于噪声');
+			}else{
+				console.log(result[i][0]+'属于新的聚类');
+			}
+		}
+	}
+
+	//从Order表中提出一个
+	function shiftOrder(){
+		if(order.length == 0)
+			return;
+		let p = order.shift();
+		if(isCore(p,s,MinPts)){
+			pushResult(p);
+			let ps = getPoint(p,s);
+			pushOrder(ps);
+		}
+		shiftOrder();
+	}
+
+	OPTICS();
+
+</script>
