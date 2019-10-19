@@ -20,6 +20,11 @@ public class Factor {
 		this.key = key;
 		this.valueStr = Integer.toString(value);
 	}
+	
+	public static double Cal(Factor[] a ,Factor[] b){
+		
+		return 1.0;
+	}
 
 	public static List<Factor> parse(Session session) {
 		List<Factor> list = new ArrayList<>();
