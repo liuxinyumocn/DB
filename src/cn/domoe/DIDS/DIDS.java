@@ -2,26 +2,6 @@ package cn.domoe.DIDS;
 
 public class DIDS {
 
-	/*
-	 * 计算基于r、Minpts、k的核心距离
-	 * 
-	 * return
-	 * null 无穷
-	 * double
-	 * */
-	public static void cd(double r,int Minpts,Object k ,Object dataset) {
-		
-	}
-	
-	public static void rd(double r,int Minpts,Object k,Object q,Object dataset) {
-		
-	}
-	
-	public static void lrd(double a) {
-		
-		
-	}
-
 	private Transaction[] Du = null;
 	private double r = 0;
 	private int MinPts = 0;
@@ -31,9 +11,13 @@ public class DIDS {
 		this.MinPts = MinPts;
 		
 		this.tenFoldCrossValidation();
-		OPTICS ProFu = new OPTICS(this.Train,r,MinPts);
-		OPTICS rd = new OPTICS(this.Test,r,MinPts);
-		OFs ofs = new OFs(rd);
+		OPTICS opticsProFu = new OPTICS(this.Train,r,MinPts);
+		Item[] proFu = opticsProFu.getResult();
+		
+		OPTICS opticsRd = new OPTICS(this.Test,r,MinPts);
+		Item[] rd = opticsRd.getResult();
+		
+		double of = OFs.OF();
 	}
 	
 	
