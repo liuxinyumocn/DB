@@ -218,4 +218,57 @@ public class OPTICS {
 		this.result.add(p);
 	}
 	
+	/*
+	 * 计算两个元素之间的可达距离
+	 * */
+	private double calRD(Item k,Item q){
+		
+		return 0;
+	}
+	/*
+	 * 计算元素本地可达距离
+	 * */
+	private double calLRD(){
+		
+		return 0;
+	}
+	
+	/*
+	 * 计算OF
+	 * */
+	private double calOF(){
+		
+		return 0;
+	}
+	
+	/*
+	 * 获取一个集合，该集合为对象k相对于其他元素由近到远的m个元素集合，返回值长度 <= m 不含k
+	 * NminPts(k)
+	 * */
+	private Item[] N(Item k,Item[] data,int m){
+		int index = 0;
+		Item[] diss = new Item[data.length - 1  > m ? m : data.length-1];
+		for(int i = 0;i<data.length;i++){
+			data[i].dis = this.dis(k, data[i]);
+			if(index < diss.length)
+				diss[index++] = data[i];
+			else{
+				if(diss[index-1].dis > data[i].dis){
+					diss[index-1] = data[i];
+				}
+			}
+			//排序diss
+			for(int j =0;j<index;j++ ){
+				for(int t = j+1;t<index;t++){
+					if(diss[j].dis > diss[t].dis){
+						Item a = diss[j];
+						diss[j] = diss[t];
+						diss[t] = a;
+					}
+				}
+			}
+		}
+		return diss;
+	}
+	
 }
