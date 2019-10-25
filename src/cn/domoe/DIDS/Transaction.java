@@ -1,7 +1,15 @@
 package cn.domoe.DIDS;
 
 public class Transaction {
-
+	
+	public Transaction(int a,int b) {
+		x =a ;
+		y=b;
+	}
+	
+	public int x = 0;
+	public int y = 0;
+	
 	public int u_id = 0;
 	
 	public int transaction_id = 0;
