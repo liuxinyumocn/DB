@@ -8,14 +8,16 @@ public class DIDS {
 	private Transaction[] Du = null;
 	private double r = 0;
 	private int MinPts = 0;
+	
+	private Item[] proFu = null;
 	public DIDS(Transaction[] Du , double r , int MinPts) {
 		this.Du = Du;
 		this.r = r;
 		this.MinPts = MinPts;
 		
 		this.tenFoldCrossValidation();
-		//OPTICS opticsProFu = new OPTICS(this.Train,r,MinPts);
-		//Item[] proFu = opticsProFu.getResult();					//User Profile of User u
+		OPTICS opticsProFu = new OPTICS(this.Train,r,MinPts);
+		proFu = opticsProFu.getResult();					//User Profile of User u
 		//print(this.Test);
 		OPTICS opticsRd = new OPTICS(this.Test,r,MinPts);
 		Item[] rd = opticsRd.getResult();
@@ -38,7 +40,7 @@ public class DIDS {
 	
 	private List<Item> ELList = new ArrayList<>();
 	private void EL() {
-		
+		new EL(ELList,proFu);
 	}
 	
 	private void print(Transaction[] list) {
