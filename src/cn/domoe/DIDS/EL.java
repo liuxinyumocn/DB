@@ -4,11 +4,13 @@ import java.util.List;
 
 public class EL {
 
+	private Bagging bagging = null;
 	public EL(List<Item> eLList, Item[] proFu) {
 
 		//Bagging、朴素贝叶斯
-		Object res = new Bagging(eLList,proFu);
+		bagging = new Bagging(eLList,proFu);
 		
+		bagging.print();
 	}
 
 

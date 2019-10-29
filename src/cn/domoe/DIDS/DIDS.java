@@ -18,10 +18,10 @@ public class DIDS {
 		this.tenFoldCrossValidation();
 		OPTICS opticsProFu = new OPTICS(this.Train,r,MinPts);
 		proFu = opticsProFu.getResult();					//User Profile of User u
-		//print(this.Test);
+		print(proFu);
 		OPTICS opticsRd = new OPTICS(this.Test,r,MinPts);
 		Item[] rd = opticsRd.getResult();
-		//print(rd);
+		print(rd);
 		
 		for(int i =0;i<rd.length;i++) {
 			double of = opticsRd.calOF(rd[i], rd, MinPts);
@@ -74,16 +74,19 @@ public class DIDS {
 	private Transaction[] Train = null;
 	
 	private void tenFoldCrossValidation() {
-		int testNum = this.Du.length ;
-		Test = new Transaction[testNum];
-		Train = new Transaction[this.Du.length - testNum];
-		int i = 0;
-		for(; i < testNum ; i++) {
-			Test[i] = this.Du[i];
-		}
-		for(int j = 0; j < Train.length;j++) {
-			Train[j] = this.Du[i++];
-		}
+		this.Test = this.Du;
+		this.Train = this.Du;
+		
+//		int testNum = this.Du.length ;
+//		Test = new Transaction[testNum];
+//		Train = new Transaction[this.Du.length - testNum];
+//		int i = 0;
+//		for(; i < testNum ; i++) {
+//			Test[i] = this.Du[i];
+//		}
+//		for(int j = 0; j < Train.length;j++) {
+//			Train[j] = this.Du[i++];
+//		}
 	}
 
 	
