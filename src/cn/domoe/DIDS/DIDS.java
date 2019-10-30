@@ -14,7 +14,7 @@ public class DIDS {
 		this.Du = Du;
 		this.r = r;
 		this.MinPts = MinPts;
-		
+		print(Du);
 		this.tenFoldCrossValidation();
 		OPTICS opticsProFu = new OPTICS(this.Train,r,MinPts);
 		proFu = opticsProFu.getResult();					//User Profile of User u
@@ -36,6 +36,8 @@ public class DIDS {
 		if(ELList.size() > 0) {
 			this.EL();
 		}
+		//打印所有可信赖的点
+		GHT.print();
 	}
 	
 	private List<Item> ELList = new ArrayList<>();

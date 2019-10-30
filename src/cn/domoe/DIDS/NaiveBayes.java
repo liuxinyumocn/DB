@@ -102,6 +102,6 @@ public class NaiveBayes {
 		}
 		if(this.Tnum == 0)
 			return 0;
-		return num/this.Tnum;
+		return num*1.0/this.Tnum;
 	}
 }

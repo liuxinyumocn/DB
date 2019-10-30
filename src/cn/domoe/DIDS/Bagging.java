@@ -1,5 +1,6 @@
 package cn.domoe.DIDS;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bagging {
@@ -46,7 +47,15 @@ public class Bagging {
 		}
 		//完成基于Bagging 朴素贝叶斯的分类
 		//soc > 0的为可信赖的
+		List<Item> list = new ArrayList<>();
+		for(int i = 0;i<this.eLList.size();i++){
+			if(eLList.get(i).soc > 0){
+				list.add(eLList.get(i));
+			}
+		}
+		this.result = list;
 	}
+	private List<Item> result = null;
 	
 	//有放回的随机抽样
 	private Item[] gen(){
@@ -70,6 +79,10 @@ public class Bagging {
 			Item item = this.eLList.get(i);
 			System.out.println("Bagging ("+item.t.x+","+item.t.y+") 投票结果："+item.soc);
 		}
+	}
+
+	public List<Item> getResult() {
+		return this.result;
 	}
 	
 	
