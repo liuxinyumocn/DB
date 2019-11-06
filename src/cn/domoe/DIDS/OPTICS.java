@@ -245,7 +245,7 @@ public class OPTICS {
 	/*
 	 * 计算OF
 	 * */
-	public double calOF(Item k,Item[] data,int MinPts){
+	public double calOF(Item k , Item[] data , int MinPts){
 		Item[] Nk = this.N(k, data, MinPts);
 		
 		int fm = Nk.length;
